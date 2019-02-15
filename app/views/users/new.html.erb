@@ -1,0 +1,69 @@
+<div class="container">
+  <h1>Signup form</h1><br />
+</div>
+
+<div class="container">
+  <div class="row">
+    <%= form_for @user do |f| %>
+      <div>
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name %>
+      </div>
+
+      <div>
+        <%= f.label :surname %><br />
+        <%= f.text_field :surname %>
+      </div>
+
+      <div>
+        <%= f.label :email %><br />
+        <%= f.text_field :email %>
+      </div>
+
+      <div>
+        <%= f.label :date_of_birth, 'Birthday' %><br />
+        <%= f.date_select :date_of_birth, include_blank: true, start_year: 1900, end_year: Date.today.year %>
+      </div>
+
+      <div>
+        <%= f.label :phone_number %><br />
+        <%= f.text_field :phone_number %>
+      </div>
+      <br />
+
+      <h1>Address</h1>
+        <%= f.fields_for :address do |address_fields|%>
+          Street:
+            <%= address_fields.text_field :street %>
+          City:
+            <%= address_fields.text_field :city %>
+          Zip code:
+            <%= address_fields.text_field :zip_code %>
+          Country:
+            <%= address_fields.country_select :country, include_blank: true %>
+        <% end %>
+
+        <h1>Company</h1>
+
+        <%= f.fields_for :company do |company_fields| %>
+          Name:
+          <%= company_fields.text_field :name %>
+
+          <%= company_fields.fields_for :address do |company_address_fields| %>
+            Street:
+              <%= company_address_fields.text_field :street %>
+            City:
+              <%= company_address_fields.text_field :city %>
+            Zip code:
+              <%= company_address_fields.text_field :zip_code %>
+            <br />
+            <br />
+            Country:
+              <%= company_address_fields.country_select :country, include_blank: true %>
+          <% end %>
+        <% end %>
+
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
